@@ -288,6 +288,76 @@ h2,
   margin-bottom: 32px;
 }
 
+.focus-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: -12px 0 22px;
+  padding: 16px;
+  border: 1px solid #dbe9dd;
+  border-radius: 12px;
+  background: linear-gradient(115deg, #edf5eb, #f7f6ec);
+}
+
+.focus-card-icon {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  place-items: center;
+  border-radius: 11px;
+  color: #8b7136;
+  background: #f7edcf;
+  font-size: 21px;
+}
+
+.focus-card-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.focus-card-label {
+  margin: 0 0 4px;
+  color: #7e7148;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+}
+
+.focus-card-task {
+  overflow-wrap: anywhere;
+  margin: 0;
+  color: #35463d;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.focus-card-hint {
+  margin: 3px 0 0;
+  color: #7d8980;
+  font-size: 12px;
+}
+
+.focus-clear-button {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border: 0;
+  border-radius: 7px;
+  color: #7d8980;
+  background: transparent;
+  font-size: 20px;
+}
+
+.focus-clear-button:hover {
+  color: #43554a;
+  background: rgb(255 255 255 / 60%);
+}
+
 .todo-form {
   display: flex;
   gap: 10px;
@@ -427,6 +497,38 @@ h2,
   text-decoration: line-through;
 }
 
+.todo-actions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 4px;
+}
+
+.focus-button {
+  display: inline-flex;
+  min-height: 32px;
+  align-items: center;
+  gap: 5px;
+  padding: 0 9px;
+  border: 0;
+  border-radius: 7px;
+  color: #7c8880;
+  background: transparent;
+  font-size: 11px;
+  font-weight: 600;
+  transition: color 160ms ease, background-color 160ms ease;
+}
+
+.focus-button:hover,
+.focus-button.selected {
+  color: #806b32;
+  background: #f7f0dc;
+}
+
+.focus-button span {
+  font-size: 15px;
+}
+
 .delete-button {
   display: grid;
   width: 32px;
@@ -444,7 +546,7 @@ h2,
 }
 
 .todo-item:hover .delete-button,
-.delete-button:focus-visible {
+.todo-item:focus-within .delete-button {
   opacity: 1;
 }
 
@@ -555,6 +657,15 @@ h2,
 
   .delete-button {
     opacity: 1;
+  }
+
+  .focus-card {
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .focus-button {
+    padding: 0 6px;
   }
 }
 

@@ -83,8 +83,23 @@ function App() {
   function toggleTodo(todoId) {
     setTodos((currentTodos) =>
       currentTodos.map((todo) =>
-        todo.id === todoId ? { ...todo, completed: !todo.completed } : todo,
+        todo.id === todoId
+          ? {
+              ...todo,
+              completed: !todo.completed,
+              isFocus: todo.completed ? todo.isFocus : false,
+            }
+          : todo,
       ),
+    )
+  }
+
+  function focusTodo(todoId) {
+    setTodos((currentTodos) =>
+      currentTodos.map((todo) => ({
+        ...todo,
+        isFocus: todo.id === todoId && !todo.completed,
+      })),
     )
   }
 
@@ -100,6 +115,7 @@ function App() {
         todos={todos}
         onAddTodo={addTodo}
         onToggleTodo={toggleTodo}
+        onFocusTodo={focusTodo}
         onDeleteTodo={deleteTodo}
         onLogout={handleLogout}
       />

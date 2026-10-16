@@ -15,6 +15,7 @@ Sign in with the demo account:
 - Password: `password123`
 
 Todos are stored in this browser's localStorage. The login is a client-side demo and does not provide real authentication.
+Choose **Focus** on an active task to add it to your Today's spotlight. Your spotlight is saved with your tasks and clears when you complete the focused task.
 
 ## Available commands
 
