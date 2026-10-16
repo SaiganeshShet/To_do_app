@@ -2,11 +2,19 @@ import { useState } from 'react'
 
 const FILTERS = ['All', 'Active', 'Completed']
 
-function TodoPage({ todos, onAddTodo, onToggleTodo, onDeleteTodo, onLogout }) {
+function TodoPage({
+  todos,
+  onAddTodo,
+  onToggleTodo,
+  onFocusTodo,
+  onDeleteTodo,
+  onLogout,
+}) {
   const [newTodo, setNewTodo] = useState('')
   const [filter, setFilter] = useState('All')
 
   const remainingCount = todos.filter((todo) => !todo.completed).length
+  const focusedTodo = todos.find((todo) => todo.isFocus && !todo.completed)
   const visibleTodos = todos.filter((todo) => {
     if (filter === 'Active') return !todo.completed
     if (filter === 'Completed') return todo.completed
@@ -42,6 +50,27 @@ function TodoPage({ todos, onAddTodo, onToggleTodo, onDeleteTodo, onLogout }) {
         <p className="muted todo-intro">
           One step at a time. You’ve got this.
         </p>
+
+        {focusedTodo && (
+          <section className="focus-card" aria-label="Today's spotlight" aria-live="polite">
+            <span className="focus-card-icon" aria-hidden="true">
+              ✦
+            </span>
+            <div className="focus-card-copy">
+              <p className="focus-card-label">Today's spotlight</p>
+              <p className="focus-card-task">{focusedTodo.text}</p>
+              <p className="focus-card-hint">One thing at a time. You’ve got this.</p>
+            </div>
+            <button
+              className="focus-clear-button"
+              type="button"
+              aria-label="Clear today's spotlight"
+              onClick={() => onFocusTodo(null)}
+            >
+              ×
+            </button>
+          </section>
+        )}
 
         <form className="todo-form" onSubmit={handleSubmit}>
           <label className="visually-hidden" htmlFor="new-todo">
@@ -100,14 +129,32 @@ function TodoPage({ todos, onAddTodo, onToggleTodo, onDeleteTodo, onLogout }) {
                     {todo.text}
                   </span>
                 </label>
-                <button
-                  className="delete-button"
-                  type="button"
-                  aria-label={`Delete ${todo.text}`}
-                  onClick={() => onDeleteTodo(todo.id)}
-                >
-                  ×
-                </button>
+                <div className="todo-actions">
+                  {!todo.completed && (
+                    <button
+                      className={`focus-button${todo.isFocus ? ' selected' : ''}`}
+                      type="button"
+                      aria-label={
+                        todo.isFocus
+                          ? `Remove ${todo.text} from focus`
+                          : `Focus on ${todo.text}`
+                      }
+                      aria-pressed={Boolean(todo.isFocus)}
+                      onClick={() => onFocusTodo(todo.isFocus ? null : todo.id)}
+                    >
+                      <span aria-hidden="true">{todo.isFocus ? '✦' : '☆'}</span>
+                      {todo.isFocus ? 'In focus' : 'Focus'}
+                    </button>
+                  )}
+                  <button
+                    className="delete-button"
+                    type="button"
+                    aria-label={`Delete ${todo.text}`}
+                    onClick={() => onDeleteTodo(todo.id)}
+                  >
+                    ×
+                  </button>
+                </div>
               </li>
             ))}
           </ul>
